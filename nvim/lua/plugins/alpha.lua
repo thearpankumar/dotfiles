@@ -51,9 +51,18 @@ return {
             button.opts.hl = "AlphaButtons"
             button.opts.hl_shortcut = "AlphaShortcut"
         end
-        dashboard.section.header.opts.hl = "Function"
-        dashboard.section.buttons.opts.hl = "Identifier"
-        dashboard.section.footer.opts.hl = "Function"
+
+        -- Define mint green highlight groups
+        vim.cmd([[
+            highlight AlphaHeader guifg=#ACECA1
+            highlight AlphaButtons guifg=#ACECA1
+            highlight AlphaShortcut guifg=#ACECA1
+            highlight AlphaFooter guifg=#ACECA1
+        ]])
+
+        dashboard.section.header.opts.hl = "AlphaHeader"   -- MINT GREEN
+        dashboard.section.buttons.opts.hl = "AlphaButtons" -- MINT GREEN
+        dashboard.section.footer.opts.hl = "AlphaFooter"   -- MINT GREEN
         dashboard.opts.layout[1].val = 4
         return dashboard
     end,
@@ -102,4 +111,3 @@ return {
         })
     end,
 }
-
