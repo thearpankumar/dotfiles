@@ -3,6 +3,8 @@ vim.g.mapleader = " "
 vim.keymap.set('n', '<Leader>s', ':w<CR>')  -- Save file with leader + s
 vim.keymap.set('n', '<C-z>', 'u')           -- Undo with Ctrl+Z
 vim.keymap.set('n', '<Leader>z', '<C-r>')   -- Redo with leader + z
+vim.keymap.set('v', '<S-c>', '"+y')
+
 
 vim.keymap.set('t', '<C-j>', vim.api.nvim_replace_termcodes('<C-\\><C-n>', true, true, true))
 

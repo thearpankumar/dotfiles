@@ -1,11 +1,12 @@
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = { 'nvim-lua/plenary.nvim' },
+  cmd = "Telescope",
+  keys = {
+    { 'ff', '<cmd>Telescope find_files<cr>', desc = 'Find files' },
+    { 'fs', '<cmd>Telescope live_grep<cr>', desc = 'Live grep' },
+  },
   config = function()
     require('telescope').setup{}
-    
-    -- Create mappings without leader key
-    vim.keymap.set('n', 'ff', require('telescope.builtin').find_files, { desc = 'Find files' })
-    vim.keymap.set('n', 'fs', require('telescope.builtin').live_grep, { desc = 'Live grep' })
   end
 }

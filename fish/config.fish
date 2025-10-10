@@ -10,7 +10,7 @@
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.bin  $HOME/.local/bin $HOME/.config/emacs/bin $HOME/Applications /var/lib/flatpak/exports/bin/ $fish_user_paths
+set -U fish_user_paths $HOME/.bin  $HOME/.local/bin $HOME/.config/emacs/bin $HOME/Applications $HOME/go/bin /var/lib/flatpak/exports/bin/ $fish_user_paths
 
 ### EXPORT ###
 set fish_greeting                                 # Supresses fish's intro message
@@ -267,6 +267,8 @@ alias venv="source .venv/bin/activate.fish"
 alias stopwaybar="pkill -f 'waybar'"
 
 alias pfzf="fzf --preview 'batcat --color=auto {}'"
+
+alias nv="nvim"
 ### RANDOM COLOR SCRIPT ###
 # Get this script from my GitLab: gitlab.com/dwt1/shell-color-scripts
 # Or install it from the Arch User Repository: shell-color-scripts
@@ -290,3 +292,11 @@ if not set -q TMUX
     tmux
 end
 
+set -gx PATH $HOME/.deno/bin $PATH
+alias blackice="cd /home/warmachine/codes/Hackathon/Samsung-AI-os/blackice-cli && npx blackice"
+
+set -gx CHROME_DEVEL_SANDBOX /usr/local/sbin/chrome-devel-sandbox
+set -gx PATH /usr/local/cuda-12.8/bin $PATH
+set -gx LD_LIBRARY_PATH /usr/local/cuda-12.8/lib64 $LD_LIBRARY_PATH
+set -Ux PYENV_ROOT $HOME/.pyenv
+set -Ux fish_user_paths $PYENV_ROOT/bin $fish_user_paths
