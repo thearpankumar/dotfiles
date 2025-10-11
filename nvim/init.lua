@@ -8,6 +8,14 @@ vim.keymap.set('v', '<S-c>', '"+y')
 
 vim.keymap.set('t', '<C-j>', vim.api.nvim_replace_termcodes('<C-\\><C-n>', true, true, true))
 
+-- Ensure Dockerfile filetype detection
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = {"Dockerfile", "*.dockerfile", "Dockerfile.*", "*.Dockerfile"},
+    callback = function()
+        vim.bo.filetype = "dockerfile"
+    end,
+})
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
