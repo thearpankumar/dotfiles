@@ -7,7 +7,7 @@ return {
             require("conform").setup({
                 formatters_by_ft = {
                     rust = { "rustfmt" },
-                    python = { "black", "isort" },
+                    python = { "black" },
                     lua = { "stylua" },
                 },
                 format_on_save = {

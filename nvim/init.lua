@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 
-vim.keymap.set('n', '<Leader>s', ':w<CR>')  -- Save file with leader + s
+vim.keymap.set('n', '<C-s>', ':w<CR>')      -- Save file with Ctrl+S
+vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>a') -- Save file with Ctrl+S in insert mode
 vim.keymap.set('n', '<C-z>', 'u')           -- Undo with Ctrl+Z
 vim.keymap.set('n', '<Leader>z', '<C-r>')   -- Redo with leader + z
 vim.keymap.set('v', '<S-c>', '"+y')

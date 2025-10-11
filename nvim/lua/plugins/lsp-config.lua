@@ -56,7 +56,9 @@ return {
             vim.lsp.enable({ 'lua_ls', 'rust_analyzer', 'pyright', 'clangd', 'cmake', 'cssls', 'html' })
 
             -- LSP keybindings
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'LSP hover' })
+            -- Press K twice to scroll in hover window: first K opens it, second K enters it
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'LSP hover (press K twice to enter)' })
+
             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP go to definition' })
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'LSP references' })
             vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP code action' })
