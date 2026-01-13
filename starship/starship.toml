@@ -1,5 +1,5 @@
 # Don't print a new line at the start of the prompt
-command_timeout = 500
+command_timeout = 5000
 add_newline = false
 
 # Make prompt a single line instead of two lines
@@ -9,13 +9,13 @@ disabled = true
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                         
 error_symbol = "[✖](bold red) "
-success_symbol = "[➜](#ACECA1)"  # MINT GREEN
+success_symbol = "[➜](#00FFFF)"  # MINT GREEN
 
 # Use custom format
 # format = """
-# [┌───────────────────>](bold #ACECA1)
-# [│](#ACECA1)$directory$rust$package
-# [└─>](#ACECA1) """
+# [┌───────────────────>](bold #BBCB64)
+# [│](#BBCB64)$directory$rust$package
+# [└─>](#BBCB64) """
 
 # Disable the package module, hiding it from the prompt completely
 [package]
@@ -29,67 +29,70 @@ utc_time_offset = "+6"
 style = "bold bg:#5A6374"
 
 [username]
-style_user = "BOLD #ACECA1"  # MINT GREEN
+style_user = "BOLD #00FFFF"  # MINT GREEN
 show_always = false
 
 # Indicates when in bash shell.
 [custom.bash]
 command = "echo 🚀"
 when = '[ "$STARSHIP_SHELL" == "bash" ]'
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 
 # Indicates when in fish shell.
 [custom.fish]
 command = "echo 🐠"
 when = 'test "$STARSHIP_SHELL" = "fish"'
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 
 [custom.zsh]
 command = "echo 🦀"
 when = 'test "$STARSHIP_SHELL" = "zsh"'
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 
 [nix_shell]
 disabled = false
 impure_msg = '[impure shell](bold red)'
-pure_msg = '[pure shell](#ACECA1)'  # MINT GREEN
+pure_msg = '[pure shell](#00FFFF)'  # MINT GREEN
 unknown_msg = '[default shell](bold yellow)'
-format = 'via [❄️  $state( \($name\))](#ACECA1) '  # MINT GREEN
+format = 'via [❄️  $state( \($name\))](#00FFFF) '  # MINT GREEN
 
 [kubernetes]
 symbol = "⎈ "
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 #disabled = false
-#format = 'on [⎈ ($user on )($cluster in )$context \($namespace\)](#ACECA1) '
-#format = 'on [⎈ $context \($namespace\)](#ACECA1) '
+#format = 'on [⎈ ($user on )($cluster in )$context \($namespace\)](#BBCB64) '
+#format = 'on [⎈ $context \($namespace\)](#BBCB64) '
 
 [docker_context]
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 #detect_files=['*.yml', '*.yaml', '*.json']
 #detect_files = []
 #only_with_files = true
 
 # Add these sections for consistent mint green coloring
 [directory]
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
+truncation_length = 1
+truncation_symbol = "…/"
+fish_style_pwd_dir_length = 1
 
 [git_branch]
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 
 [git_status]
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 
 [nodejs]
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 
 [python]
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 
 [java]
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 
 [rust]
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN
 
 [golang]
-style = "#ACECA1"  # MINT GREEN
+style = "#00FFFF"  # MINT GREEN

@@ -41,9 +41,22 @@ set fish_color_command brcyan
 set fish_color_error '#ff6c6b'
 set fish_color_param brcyan
 
+# Android SDK
+set -gx ANDROID_HOME $HOME/Android/Sdk
+set -gx ANDROID_SDK_ROOT $HOME/Android/Sdk
+set -gx PATH $ANDROID_HOME/emulator $PATH
+set -gx PATH $ANDROID_HOME/platform-tools $PATH
+
 ### FUNCTIONS ###
 
 # Functions needed for !! and !$
+
+# Start gnome-keyring for VS Code and other apps
+if test -n "$DESKTOP_SESSION"
+    set -x (gnome-keyring-daemon --start --components=secrets | string split "=")
+end 
+
+
 function __history_previous_command
   switch (commandline -t)
   case "!"
@@ -154,6 +167,25 @@ function minikubewithgpu
     sudo nvidia-ctk runtime configure --runtime=docker
     sudo systemctl restart docker
     minikube start --driver docker --container-runtime docker --gpus all
+end
+
+function claude-personal
+    set host_pwd (pwd)
+    set uid (id -u)
+    set gid (id -g)
+
+    docker run -it --rm \
+        --user "$uid:$gid" \
+        -e HOME=/home/claude \
+        -v claude_personal_auth:/home/claude \
+        -v "$host_pwd:$host_pwd" \
+        -w "$host_pwd" \
+        claude-personal
+end
+
+# Flutter SDK
+if test -d $HOME/flutter/bin
+    set -gx PATH $HOME/flutter/bin $PATH
 end
 
 ### END OF FUNCTIONS ###
