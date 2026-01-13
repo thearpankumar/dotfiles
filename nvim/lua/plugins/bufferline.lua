@@ -20,23 +20,23 @@ return {
                     }
                 }
             },
-            -- Add mint green highlights
+            -- Teal blue highlights
             highlights = {
                 buffer_selected = {
-                    fg = '#ACECA1', -- MINT GREEN for selected buffer
+                    fg = '#00FFFF', -- Teal blue for selected buffer
                     bold = true,
                 },
                 indicator_selected = {
-                    fg = '#ACECA1', -- MINT GREEN for indicator
+                    fg = '#00FFFF', -- Teal blue for indicator
                 },
                 separator_selected = {
-                    fg = '#ACECA1', -- MINT GREEN for separator
+                    fg = '#00FFFF', -- Teal blue for separator
                 },
                 close_button_selected = {
-                    fg = '#ACECA1', -- MINT GREEN for close button
+                    fg = '#00FFFF', -- Teal blue for close button
                 },
                 tab_selected = {
-                    fg = '#ACECA1', -- MINT GREEN for selected tab
+                    fg = '#00FFFF', -- Teal blue for selected tab
                 },
             },
         })

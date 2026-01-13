@@ -9,11 +9,12 @@ return {
             flavour = "mocha",
             color_overrides = {
                 mocha = {
-                    blue = "#ACECA1",     -- MINT GREEN instead of blue
-                    lavender = "#ACECA1", -- MINT GREEN instead of lavender
-                    sapphire = "#ACECA1", -- MINT GREEN instead of sapphire
-                    sky = "#ACECA1",      -- MINT GREEN instead of sky blue
-                    teal = "#ACECA1",     -- MINT GREEN instead of teal
+                    blue = "#00FFFF",     -- Teal blue for primary accents
+                    lavender = "#00FFFF", -- Teal blue for lavender
+                    sapphire = "#00FFFF", -- Teal blue for sapphire
+                    sky = "#00FFFF",      -- Teal blue for sky
+                    teal = "#777C6D",     -- Muted olive for secondary accents
+                    green = "#B153D7",    -- Purple for green elements
                 },
             },
         })
