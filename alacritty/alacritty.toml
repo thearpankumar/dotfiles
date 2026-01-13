@@ -12,8 +12,15 @@ white = "#dfdfdf"
 yellow = "#ecbe7b"
 
 [colors.cursor]
-cursor = "#528bff"
+cursor = "#70B2B2"
 text = "CellBackground"
+
+[cursor]
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "On"
+shape = "Block"
 
 [colors.normal]
 black = "#1c1f24"
@@ -26,11 +33,11 @@ white = "#abb2bf"
 yellow = "#da8548"
 
 [colors.primary]
-background = "#282c34"
+background = "#0a0a0a"
 foreground = "#bbc2cf"
 
 [colors.selection]
-background = "#3e4451"
+background = "#0a0a0a"
 text = "CellForeground"
 
 [env]
@@ -39,25 +46,26 @@ TERM = "xterm-256color"
 [font]
 size = 12.0
 
+# Change ALL of these from "Source Code Pro" to "JetBrainsMono Nerd Font Mono"
+[font.normal]
+family = "JetBrainsMono Nerd Font Mono"
+style = "Regular"
+
 [font.bold]
-family = "Source Code Pro"
+family = "JetBrainsMono Nerd Font Mono"
 style = "Bold"
 
-[font.bold_italic]
-family = "Source Code Pro"
-style = "Bold Italic"
-
 [font.italic]
-family = "Source Code Pro"
+family = "JetBrainsMono Nerd Font Mono"
 style = "Italic"
 
-[font.normal]
-family = "Source Code Pro"
-style = "Regular"
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font Mono"
+style = "Bold Italic"
 
 [font.offset]
 x = 0
-y = 1
+y = 0
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -158,3 +166,7 @@ instance = "Alacritty"
 [window.padding]
 x = 6
 y = 6
+
+
+[shell]
+program = "/usr/bin/fish"
