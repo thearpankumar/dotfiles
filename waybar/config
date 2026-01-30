@@ -27,6 +27,8 @@
     "custom/separator#blank",
     "custom/separator#blank",
     "clock#vertical",
+    "custom/separator#blank_3",
+    "custom/hypridle",
     "custom/separator#blank",
 ],
 
@@ -35,17 +37,13 @@
 ],
 
 "modules-right": [
-    "custom/separator#blank",
-    "group/system#monolith",
+    "bluetooth#monolith",
     "custom/separator#blank",
     "group/audio#monolith",
     "custom/separator#blank",
-    "group/connections#monolith",
+    "custom/wifi-popup",
     "custom/separator#blank",
-    "idle_inhibitor",
-    "custom/hypridle",
-    "custom/separator#blank",
-    "tray",
+    "battery#monolith",
 ],
 
 // ============ MONOLITH SPECIFIC MODULES ============
@@ -139,7 +137,6 @@
     "modules": [
         "pulseaudio#monolith",
         "pulseaudio#mic_monolith",
-        "backlight#monolith",
     ]
 },
 
@@ -182,32 +179,7 @@
     "smooth-scrolling-threshold": 1,
 },
 
-// Connections group
-"group/connections#monolith": {
-    "orientation": "vertical",
-    "drawer": {
-        "transition-duration": 400,
-        "children-class": "conn-drawer",
-        "transition-left-to-right": false
-    },
-    "modules": [
-        "network#monolith",
-        "bluetooth#monolith",
-    ]
-},
-
-"network#monolith": {
-    "format-wifi": "{icon}",
-    "format-ethernet": "󰌘",
-    "format-disconnected": "󰌙",
-    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-    "tooltip": true,
-    "tooltip-format-wifi": "{essid}\nSignal: {signalStrength}%\nIP: {ipaddr}",
-    "tooltip-format-ethernet": "{ifname}\nIP: {ipaddr}",
-    "tooltip-format-disconnected": "Disconnected",
-    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --nmtui"
-},
-
+// Bluetooth module (standalone, no drawer needed)
 "bluetooth#monolith": {
     "format": "󰂯",
     "format-disabled": "󰂲",
@@ -262,5 +234,14 @@
     "tooltip": true,
     "tooltip-format": "Exit Hyprland",
 },
+
+// WiFi popup button
+"custom/wifi-popup": {
+    "format": "󰖩",
+    "tooltip": true,
+    "tooltip-format": "Open WiFi Networks",
+    "on-click": "nm-connection-editor",
+    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --nmtui",
+}
 
 }
