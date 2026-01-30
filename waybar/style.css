@@ -1,1 +1,217 @@
-/home/warmachine/.config/waybar/style/[Dark] Half-Moon.css
+/* ---- Monolith Vertical Style ---- */
+/* Black and Red Clock Theme */
+
+@import "../waybar/wallust/colors-waybar.css";
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    min-height: 0;
+    font-size: 97%;
+}
+
+window#waybar {
+    background: #040406;
+    border-radius: 0px;
+    color: #cba6f7;
+}
+
+window#waybar.hidden {
+    opacity: 0.5;
+}
+
+tooltip {
+    background: #1e1e2e;
+    border-radius: 0px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #11111b;
+    color: #ffd700;
+}
+
+/*-----module groups----*/
+.modules-left,
+.modules-right {
+    padding-top: 2px;
+    padding-bottom: 30px;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+.modules-center {
+    background: linear-gradient(180deg, rgba(255,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(255,0,0,0.1) 100%);
+    border-left: 2px solid #ff0000;
+    border-right: 2px solid #ff0000;
+    margin: 8px 2px;
+    padding: 10px 4px;
+}
+
+#workspaces {
+    padding: 4px 0;
+}
+
+#workspaces button {
+    color: #ffffff;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 900;
+    min-width: 22px;
+    min-height: 22px;
+    padding: 4px 6px;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+}
+
+#workspaces button:hover {
+    color: #ff0000;
+    background: rgba(255,0,0,0.15);
+    text-shadow: 0 0 8px rgba(255,0,0,0.6);
+}
+
+#workspaces button.active {
+    color: #ffffff;
+    background: linear-gradient(180deg, #ff0000 0%, #990000 100%);
+    box-shadow: 0 0 10px rgba(255,0,0,0.5);
+    text-shadow: 0 0 5px rgba(0,0,0,0.8);
+}
+
+#workspaces button.urgent {
+    color: #ffffff;
+    background: #ff0000;
+    animation: urgent-blink 0.5s ease infinite alternate;
+}
+
+@keyframes urgent-blink {
+    from { opacity: 1; }
+    to { opacity: 0.5; }
+}
+
+/* ============ CLOCK - BLACK AND RED ============ */
+#clock {
+    color: #ff0000;
+    background-color: #000000;
+    font-size: 14px;
+    font-weight: 900;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 6px;
+    padding-left: 6px;
+    border-radius: 0px;
+}
+
+#backlight,
+#backlight-slider,
+#battery,
+#bluetooth,
+#cpu,
+#disk,
+#idle_inhibitor,
+#keyboard-state,
+#memory,
+#mode,
+#mpris,
+#network,
+#power-profiles-daemon,
+#pulseaudio,
+#pulseaudio-slider,
+#taskbar,
+#temperature,
+#tray,
+#window,
+#wireplumber,
+#custom-backlight,
+#custom-browser,
+#custom-cava_mviz,
+#custom-cycle_wall,
+#custom-dot_update,
+#custom-file_manager,
+#custom-keybinds,
+#custom-keyboard,
+#custom-light_dark,
+#custom-lock,
+#custom-hint,
+#custom-hypridle,
+#custom-menu,
+#custom-playerctl,
+#custom-power_vertical,
+#custom-power,
+#custom-quit,
+#custom-reboot,
+#custom-settings,
+#custom-spotify,
+#custom-swaync,
+#custom-tty,
+#custom-updater,
+#custom-hyprpicker,
+#custom-nightlight {
+    color: #e5d9f5;
+    font-size: 13px;
+    min-width: 14px;
+    min-height: 14px;
+    padding: 4px;
+}
+
+#tray {
+    padding: 4px;
+}
+
+#tray menu {
+    background: #1e1e2e;
+    border: 1px solid #11111b;
+}
+
+#tray > widget {
+    min-width: 20px;
+    min-height: 20px;
+}
+
+#temperature.critical {
+    background-color: #ff0000;
+}
+
+@keyframes blink {
+    to {
+        color: #000000;
+    }
+}
+
+/*-----Indicators----*/
+#custom-hypridle.notactive,
+#idle_inhibitor.activated {
+    color: #39FF14;
+}
+
+#battery.critical:not(.charging) {
+    color: #f53c3c;
+    animation-name: blink;
+    animation-duration: 3.0s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#backlight-slider slider,
+#pulseaudio-slider slider {
+    min-height: 7px;
+    min-width: 15px;
+    opacity: 0;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+    min-height: 100px;
+    min-width: 7px;
+    border-radius: 0px;
+    background-color: #22252a;
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+    min-width: 5px;
+    border-radius: 0px;
+    background-color: #ff0000;
+}

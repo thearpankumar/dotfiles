@@ -1,1 +1,266 @@
-/home/warmachine/.config/waybar/configs/[TOP] Default Laptop_v3
+/* ---- Glassmorphism Monolith - Left Sidebar ---- */
+/* Minimal, alive, glassmorphism vertical bar */
+
+{
+"include": [
+  "$HOME/.config/waybar/Modules",
+  "$HOME/.config/waybar/ModulesWorkspaces",
+  "$HOME/.config/waybar/ModulesCustom",
+  "$HOME/.config/waybar/ModulesGroups",
+  "$HOME/.config/waybar/UserModules",
+  "$HOME/.config/waybar/ModulesVertical",
+  ],
+"layer": "top",
+"position": "left",
+"margin-top": 8,
+"margin-bottom": 8,
+"margin-left": 3,
+"spacing": 3,
+"fixed-center": true,
+"ipc": true,
+
+"modules-left": [
+    "custom/swaync",
+    "custom/separator#blank",
+    "custom/separator#blank",
+    "custom/separator#blank",
+    "custom/separator#blank",
+    "custom/separator#blank",
+    "clock#vertical",
+    "custom/separator#blank",
+],
+
+"modules-center": [
+    "hyprland/workspaces#monolith",
+],
+
+"modules-right": [
+    "custom/separator#blank",
+    "group/system#monolith",
+    "custom/separator#blank",
+    "group/audio#monolith",
+    "custom/separator#blank",
+    "group/connections#monolith",
+    "custom/separator#blank",
+    "idle_inhibitor",
+    "custom/hypridle",
+    "custom/separator#blank",
+    "tray",
+],
+
+// ============ MONOLITH SPECIFIC MODULES ============
+
+// Workspaces - Bold numbers, vertical
+"hyprland/workspaces#monolith": {
+    "active-only": false,
+    "all-outputs": true,
+    "format": "{name}",
+    "show-special": false,
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "persistent-workspaces": {
+        "*": 5
+    },
+},
+
+// System monitoring group (vertical drawer)
+"group/system#monolith": {
+    "orientation": "vertical",
+    "drawer": {
+        "transition-duration": 400,
+        "children-class": "system-drawer",
+        "transition-left-to-right": false
+    },
+    "modules": [
+        "cpu#monolith",
+        "memory#monolith",
+        "temperature#monolith",
+        "disk#monolith",
+        "battery#monolith",
+    ]
+},
+
+"cpu#monolith": {
+    "format": "󰍛",
+    "interval": 2,
+    "tooltip": true,
+    "tooltip-format": "CPU: {usage}%\n{avg_frequency} GHz",
+    "on-click-right": "gnome-system-monitor",
+},
+
+"memory#monolith": {
+    "format": "󰾆",
+    "interval": 10,
+    "tooltip": true,
+    "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G ({percentage}%)",
+    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --btop",
+},
+
+"temperature#monolith": {
+    "interval": 10,
+    "tooltip": true,
+    "hwmon-path": [
+        "/sys/class/hwmon/hwmon1/temp1_input",
+        "/sys/class/thermal/thermal_zone0/temp"
+    ],
+    "critical-threshold": 80,
+    "format-critical": "󰈸",
+    "format": "󰔏",
+    "tooltip-format": "Temperature: {temperatureC}°C",
+},
+
+"disk#monolith": {
+    "interval": 30,
+    "format": "󰋊",
+    "path": "/",
+    "tooltip": true,
+    "tooltip-format": "Disk: {used} / {total} ({percentage_used}%)",
+},
+
+"battery#monolith": {
+    "format": "{icon}",
+    "format-charging": "󰂄",
+    "format-plugged": "󱘖",
+    "format-full": "󰁹",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip": true,
+    "tooltip-format": "Battery: {capacity}%\n{timeTo}",
+},
+
+// Audio group
+"group/audio#monolith": {
+    "orientation": "vertical",
+    "drawer": {
+        "transition-duration": 400,
+        "children-class": "audio-drawer",
+        "transition-left-to-right": false
+    },
+    "modules": [
+        "pulseaudio#monolith",
+        "pulseaudio#mic_monolith",
+        "backlight#monolith",
+    ]
+},
+
+"pulseaudio#monolith": {
+    "format": "{icon}",
+    "format-bluetooth": "󰂰",
+    "format-muted": "󰖁",
+    "format-icons": {
+        "headphone": "󰋋",
+        "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "tooltip": true,
+    "tooltip-format": "Volume: {volume}%\n{desc}",
+    "on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle",
+    "on-click-right": "pavucontrol -t 3",
+    "on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --inc",
+    "on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
+    "smooth-scrolling-threshold": 1,
+},
+
+"pulseaudio#mic_monolith": {
+    "format": "{format_source}",
+    "format-source": "󰍬",
+    "format-source-muted": "󰍭",
+    "tooltip": true,
+    "tooltip-format": "Mic: {source_volume}%",
+    "on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle-mic",
+    "on-click-right": "pavucontrol -t 4",
+    "on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --mic-inc",
+    "on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --mic-dec",
+},
+
+"backlight#monolith": {
+    "format": "{icon}",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "tooltip": true,
+    "tooltip-format": "Brightness: {percent}%",
+    "on-scroll-up": "$HOME/.config/hypr/scripts/Brightness.sh --inc",
+    "on-scroll-down": "$HOME/.config/hypr/scripts/Brightness.sh --dec",
+    "smooth-scrolling-threshold": 1,
+},
+
+// Connections group
+"group/connections#monolith": {
+    "orientation": "vertical",
+    "drawer": {
+        "transition-duration": 400,
+        "children-class": "conn-drawer",
+        "transition-left-to-right": false
+    },
+    "modules": [
+        "network#monolith",
+        "bluetooth#monolith",
+    ]
+},
+
+"network#monolith": {
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰌘",
+    "format-disconnected": "󰌙",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "tooltip": true,
+    "tooltip-format-wifi": "{essid}\nSignal: {signalStrength}%\nIP: {ipaddr}",
+    "tooltip-format-ethernet": "{ifname}\nIP: {ipaddr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --nmtui"
+},
+
+"bluetooth#monolith": {
+    "format": "󰂯",
+    "format-disabled": "󰂲",
+    "format-connected": "󰂱",
+    "tooltip": true,
+    "tooltip-format": "Bluetooth: {status}",
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias} ({device_battery_percentage}%)",
+    "on-click": "blueman-manager",
+},
+
+// Power group
+"group/power#monolith": {
+    "orientation": "vertical",
+    "drawer": {
+        "transition-duration": 300,
+        "children-class": "power-drawer",
+        "transition-left-to-right": false
+    },
+    "modules": [
+        "custom/power#monolith",
+        "custom/lock#monolith",
+        "custom/reboot#monolith",
+        "custom/quit#monolith",
+    ]
+},
+
+"custom/power#monolith": {
+    "format": "⏻",
+    "on-click": "$HOME/.config/hypr/scripts/Wlogout.sh",
+    "tooltip": true,
+    "tooltip-format": "Power Menu",
+},
+
+"custom/lock#monolith": {
+    "format": "󰌾",
+    "on-click": "$HOME/.config/hypr/scripts/LockScreen.sh",
+    "tooltip": true,
+    "tooltip-format": "Lock Screen",
+},
+
+"custom/reboot#monolith": {
+    "format": "󰜉",
+    "on-click": "systemctl reboot",
+    "tooltip": true,
+    "tooltip-format": "Reboot",
+},
+
+"custom/quit#monolith": {
+    "format": "󰗼",
+    "on-click": "hyprctl dispatch exit",
+    "tooltip": true,
+    "tooltip-format": "Exit Hyprland",
+},
+
+}
