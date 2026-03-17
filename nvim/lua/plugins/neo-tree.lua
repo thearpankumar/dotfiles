@@ -8,10 +8,14 @@ return {
     },
     cmd = "Neotree",
     keys = {
-        { '<leader>e', '<cmd>Neotree filesystem reveal left<CR>', desc = 'Open Neo-tree' },
-        { '<leader>t', '<cmd>Neotree toggle<CR>', desc = 'Toggle Neo-tree' },
+        { '<leader>e', '<cmd>Neotree filesystem reveal right<CR>', desc = 'Open Neo-tree' },
+        { '<leader>t', '<cmd>Neotree toggle right<CR>', desc = 'Toggle Neo-tree' },
     },
     config = function()
-        require("neo-tree").setup({})
+        require("neo-tree").setup({
+            window = {
+                position = "right",
+            },
+        })
     end
 }

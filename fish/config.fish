@@ -43,9 +43,14 @@ set fish_color_param brcyan
 
 # Android SDK
 set -gx ANDROID_HOME $HOME/Android/Sdk
-set -gx ANDROID_SDK_ROOT $HOME/Android/Sdk
 set -gx PATH $ANDROID_HOME/emulator $PATH
 set -gx PATH $ANDROID_HOME/platform-tools $PATH
+set -Ux ANDROID_HOME $HOME/Android/Sdk
+set -Ux ANDROID_SDK_ROOT $ANDROID_HOME
+set -Ux PATH $ANDROID_HOME/cmdline-tools/latest/bin $ANDROID_HOME/platform-tools $PATH
+
+# Go
+set -gx PATH /usr/local/go/bin $PATH
 
 ### FUNCTIONS ###
 
