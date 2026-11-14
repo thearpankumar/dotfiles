@@ -52,3 +52,20 @@ set -s extended-keys on
 set -s extended-keys-format csi-u
 set -as terminal-features ',*:extkeys'
 ```
+
+## Status line
+
+Shows `model │ ctx % │  branch`. Script: [`statusline.sh`](statusline.sh)
+
+```sh
+cp claude/statusline.sh ~/.claude/statusline.sh && chmod +x ~/.claude/statusline.sh
+```
+
+Add to `~/.claude/settings.json`:
+
+```json
+"statusLine": {
+  "type": "command",
+  "command": "bash ~/.claude/statusline.sh"
+}
+```
