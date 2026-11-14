@@ -1,0 +1,14 @@
+[Unit]
+Description=Lock Omarchy when logind requests a session lock (lid on AC)
+After=dbus.socket wayland-session-waitenv.service
+PartOf=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/omarchy-logind-lock-listener
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target

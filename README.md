@@ -4,6 +4,7 @@ My configs for [Omarchy](https://omarchy.org/) (Arch Linux + Hyprland), on an AS
 The older Hyprland/Waybar/Rofi setup lives on the `master` branch.
 
 Each folder maps to `~/.config/<folder>`; the loose files go straight into `~/.config/`.
+Exceptions: `local/bin/` → `~/.local/bin/`, `etc/` → `/etc/`.
 
 ## What's here
 
@@ -15,7 +16,10 @@ Each folder maps to `~/.config/<folder>`; the loose files go straight into `~/.c
 | `tmux/` | tmux: `C-Space` prefix, Nova theme, vim-tmux-navigator, resurrect/continuum, image passthrough |
 | `nvim/` | LazyVim + Omarchy theme sync, my old shortcuts, Claude Code, DAP, Rust, Markdown, Diffview, images |
 | `ghostty/` | Ghostty terminal (default): 3px padding, launches fish → tmux |
-| `omarchy/` | Omarchy shell/bar, menu extensions, hooks |
+| `omarchy/` | Omarchy shell/bar (screensaver off, lock after 5 min), menu extensions, hooks |
+| `omarchy/plugins/ultron.lock/` | Custom lock screen: pure black (OLED-friendly), big clock + date, Omarchy password box |
+| `systemd/user/`, `local/bin/` | `omarchy-logind-lock` listener: locks Omarchy on logind lock requests (lid closed on AC) |
+| `etc/systemd/logind.conf.d/` | Lid closed on charger = lock only (agents keep running); on battery = suspend |
 | `pacman/makepkg.conf` | Faster AUR builds: all cores, no tests/debug/LTO |
 | `foot/`, `alacritty/`, `kitty/` | Other terminals |
 | `btop/`, `zed/`, `herdr/`, `imv/`, `fcitx5/`, `wireplumber/`, `xdg-desktop-portal/`, `environment.d/`, `autostart/` | App configs |
@@ -32,6 +36,7 @@ Each folder maps to `~/.config/<folder>`; the loose files go straight into `~/.c
 | `SUPER + SHIFT + W` | WhatsApp |
 | `CTRL + SHIFT + ESC` | btop (task manager) |
 | `SUPER + SHIFT + scroll` | Cycle and raise windows on the workspace |
+| `SUPER + ALT + L` | Lock screen |
 | `SUPER + W` | Disabled (`SUPER + Q` closes windows) |
 
 ## Restore
@@ -44,6 +49,15 @@ cp starship.toml xdg-terminals.list mimeapps.list chromium-flags.conf ~/.config/
 chsh -s /usr/bin/fish
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm   # then prefix + I in tmux
 hyprctl reload
+
+# Lock screen clone + lid-on-AC lock
+omarchy plugin enable ultron.lock && omarchy restart shell
+mkdir -p ~/.local/bin ~/.config/systemd/user
+cp local/bin/omarchy-logind-lock-listener ~/.local/bin/
+cp systemd/user/omarchy-logind-lock.service ~/.config/systemd/user/
+systemctl --user daemon-reload && systemctl --user enable --now omarchy-logind-lock.service
+sudo cp etc/systemd/logind.conf.d/30-lid-on-ac-lock.conf /etc/systemd/logind.conf.d/
+sudo systemctl kill -s HUP systemd-logind   # reload, never restart logind
 ```
 
 Symlinks such as `nvim/lua/plugins/theme.lua` and `btop/themes/current.theme` point into

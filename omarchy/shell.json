@@ -1,7 +1,7 @@
 {
   "version": 1,
   "idle": {
-    "screensaver": 150,
+    "screensaver": 0,
     "lock": 300
   },
   "bar": {
@@ -107,5 +107,15 @@
       "YouTube"
     ]
   },
-  "plugins": []
+  "plugins": [
+    {
+      "id": "ultron.lock"
+    }
+  ],
+  "disabledPlugins": [
+    "omarchy.lock"
+  ],
+  "cloneSourceRestores": [
+    "ultron.lock"
+  ]
 }

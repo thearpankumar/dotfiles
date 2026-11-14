@@ -81,3 +81,7 @@ o.bind("SUPER + SHIFT + V", "Universal paste", universal_paste)
 -- WhatsApp on SUPER + SHIFT + W (was: Omawrite); old SUPER + SHIFT + ALT + G freed.
 hl.unbind("SUPER + SHIFT + ALT + G")
 o.rebind("SUPER + SHIFT + W", "WhatsApp", { webapp = "https://web.whatsapp.com/", focus = true })
+
+-- Lock on SUPER + ALT + L (was: cycle workspace layout back; SUPER + L still cycles forward).
+o.rebind("SUPER + ALT + L", "Lock system", "omarchy-system-lock")
+hl.unbind("SUPER + CTRL + L")  -- was: Lock system (lock is on SUPER + ALT + L)

@@ -1,0 +1,12 @@
+#!/bin/bash
+# Lock Omarchy when logind asks this session to lock (lid closed on AC with
+# HandleLidSwitchExternalPower=lock, `loginctl lock-session`, etc.).
+# Omarchy's own monitor only handles PrepareForSleep, not the Lock signal.
+dbus-monitor --system \
+  "type='signal',sender='org.freedesktop.login1',interface='org.freedesktop.login1.Session',member='Lock'" |
+while IFS= read -r line; do
+  if [[ $line == *"member=Lock"* ]]; then
+    echo "logind Lock signal received: $line"
+    omarchy system lock
+  fi
+done
