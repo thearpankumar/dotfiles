@@ -102,8 +102,8 @@ Item {
     text: "●".repeat(passwordInput.text.length)
   }
 
-  // Pure black so OLED pixels stay off. The wallpaper below is kept but hidden,
-  // so the lock service's background handling stays untouched.
+  // Current desktop wallpaper, unblurred, with a slight dark tint (matches the
+  // SDDM login screen). Black shows until the wallpaper has loaded.
   Rectangle {
     anchors.fill: parent
     color: "#000000"
@@ -111,7 +111,6 @@ Item {
     BackgroundMedia {
       id: wallpaper
       objectName: "lockWallpaper"
-      visible: false
       anchors.fill: parent
       path: root.loadBackground ? (root.video ? root.videoPosterPath : root.backgroundPath) : ""
       version: root.backgroundVersion
@@ -124,6 +123,7 @@ Item {
       decodeSize: Qt.size(width, height)
     }
 
+    // Blur from the stock lock screen, switched off so the wallpaper is sharp.
     MultiEffect {
       visible: false
       anchors.fill: wallpaper
@@ -134,6 +134,13 @@ Item {
       blurMax: 128
       blurMultiplier: 1.25
       contrast: -0.08
+    }
+
+    // Slight dark tint so the clock and password field stay readable.
+    Rectangle {
+      anchors.fill: parent
+      color: "#000000"
+      opacity: wallpaper.ready ? 0.35 : 0
     }
 
     MouseArea {

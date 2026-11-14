@@ -1,0 +1,72 @@
+#!/bin/bash
+# Game mode for Omarchy/Hyprland: no animations, no blur/shadows, opaque windows,
+# VRR for fullscreen games, performance power profile, notifications paused.
+# Wallpaper, gaps, the bar and every shortcut stay as they are.
+#
+# Usage: omarchy-gamemode [on|off|toggle|status]   (default: toggle)
+#
+# The Hyprland part is a flag file in Omarchy's toggles directory, so it survives
+# config reloads (unlike `hyprctl keyword`) and is removed cleanly when switched off.
+set -euo pipefail
+
+flag="$HOME/.local/state/omarchy/toggles/hypr/gamemode.lua"
+prev_profile="$HOME/.local/state/omarchy/gamemode.prev-profile"
+
+is_on() { [[ -f $flag ]]; }
+
+notify() {
+  omarchy-notification-send -g "󰊴" -t 2500 "$1" "$2" >/dev/null 2>&1 || true
+}
+
+on() {
+  if is_on; then echo "on"; return; fi
+  mkdir -p "$(dirname "$flag")"
+  cat >"$flag" <<'EOF'
+-- Game mode (written by ~/.local/bin/omarchy-gamemode; delete to turn off)
+hl.config({
+  animations = { enabled = false },
+  decoration = {
+    blur = { enabled = false },
+    shadow = { enabled = false },
+  },
+  -- Variable refresh rate for fullscreen games only
+  misc = { vrr = 2 },
+})
+-- Fully opaque windows: no transparency blending
+o.window({ tag = "transparent-window" }, { opacity = "1 1" })
+EOF
+  hyprctl reload >/dev/null
+
+  if command -v powerprofilesctl >/dev/null; then
+    powerprofilesctl get >"$prev_profile" 2>/dev/null || true
+    powerprofilesctl set performance 2>/dev/null || true
+  fi
+
+  notify "Game mode on" "Animations off · performance power · notifications paused"
+  omarchy-shell notifications setDnd on >/dev/null 2>&1 || true
+  echo "on"
+}
+
+off() {
+  if ! is_on; then echo "off"; return; fi
+  rm -f "$flag"
+  hyprctl reload >/dev/null
+
+  if command -v powerprofilesctl >/dev/null; then
+    profile=$(cat "$prev_profile" 2>/dev/null || echo balanced)
+    powerprofilesctl set "${profile:-balanced}" 2>/dev/null || true
+  fi
+  rm -f "$prev_profile"
+
+  omarchy-shell notifications setDnd off >/dev/null 2>&1 || true
+  notify "Game mode off" "Animations, power profile and notifications restored"
+  echo "off"
+}
+
+case "${1:-toggle}" in
+  on) on ;;
+  off) off ;;
+  toggle) if is_on; then off; else on; fi ;;
+  status) if is_on; then echo "on"; else echo "off"; fi ;;
+  *) echo "Usage: omarchy-gamemode [on|off|toggle|status]" >&2; exit 1 ;;
+esac

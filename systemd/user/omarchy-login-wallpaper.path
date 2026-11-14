@@ -1,0 +1,11 @@
+[Unit]
+Description=Watch for wallpaper/theme changes to update the login screen
+
+[Path]
+# Omarchy re-points current/background on every wallpaper or theme change.
+PathChanged=%h/.local/state/omarchy/current
+PathChanged=%h/.local/state/omarchy/current/background
+Unit=omarchy-login-wallpaper.service
+
+[Install]
+WantedBy=default.target

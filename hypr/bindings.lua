@@ -85,3 +85,6 @@ o.rebind("SUPER + SHIFT + W", "WhatsApp", { webapp = "https://web.whatsapp.com/"
 -- Lock on SUPER + ALT + L (was: cycle workspace layout back; SUPER + L still cycles forward).
 o.rebind("SUPER + ALT + L", "Lock system", "omarchy-system-lock")
 hl.unbind("SUPER + CTRL + L")  -- was: Lock system (lock is on SUPER + ALT + L)
+
+-- Game mode: animations off, opaque windows, VRR, performance power, notifications paused.
+o.bind("SUPER + F1", "Toggle game mode", "~/.local/bin/omarchy-gamemode toggle")

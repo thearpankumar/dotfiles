@@ -1,0 +1,6 @@
+[Unit]
+Description=Sync the desktop wallpaper to the SDDM login screen
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/omarchy-login-wallpaper-sync

@@ -41,7 +41,14 @@ set fish_greeting   # no intro message
 ### VI MODE ###
 function fish_user_key_bindings
     fish_vi_key_bindings
+    # CTRL+V pastes in every vi mode (fzf.fish had taken it for "search variables").
+    for mode in insert default visual
+        bind -M $mode ctrl-v fish_clipboard_paste
+    end
 end
+
+# fzf.fish (from omarchy-fish): move "search variables" off CTRL+V to CTRL+ALT+V.
+functions -q fzf_configure_bindings; and fzf_configure_bindings --variables=ctrl-alt-v
 
 ### COLORS ###
 set fish_color_normal brcyan
