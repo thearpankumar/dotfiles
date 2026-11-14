@@ -1,7 +1,7 @@
 # Omarchy dotfiles
 
 My configs for [Omarchy](https://omarchy.org/) (Arch Linux + Hyprland), on an ASUS Zenbook S14.
-The older Hyprland/Waybar/Rofi setup lives on the `main` branch.
+The older Hyprland/Waybar/Rofi setup lives on the `master` branch.
 
 Each folder maps to `~/.config/<folder>`; the loose files go straight into `~/.config/`.
 
