@@ -1,0 +1,10 @@
+{
+  "vim_mode": true,
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
+  "theme": "One Dark",
+  "buffer_font_family": "JetBrainsMono Nerd Font"
+}
