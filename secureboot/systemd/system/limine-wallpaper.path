@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch for a new boot menu wallpaper
+
+[Path]
+PathChanged=/var/lib/omarchy-boot-wallpaper/boot.jpg
+Unit=limine-wallpaper.service
+
+[Install]
+WantedBy=multi-user.target

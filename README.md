@@ -7,6 +7,13 @@ Each config folder maps to `~/.config/<folder>`; the loose files go straight int
 Exceptions: `local/bin/` → `~/.local/bin/`, `systemd/user/` → `~/.config/systemd/user/`,
 `etc/` → `/etc/`, `usr/` → `/usr/`.
 
+## Secure Boot (this branch)
+
+This `omarchy-secureboot` branch adds [`secureboot/`](secureboot/README.md): Secure Boot with your own
+keys (sbctl + sealed Limine config), a Windows entry in the boot menu, and a themed boot menu whose
+wallpaper follows the Omarchy wallpaper. One go: `cd secureboot && ./setup.sh prepare`, then the BIOS
+steps and `./setup.sh enroll` — see [`secureboot/README.md`](secureboot/README.md).
+
 ## What's here
 
 | Path | What |

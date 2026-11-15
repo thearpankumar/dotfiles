@@ -1,0 +1,6 @@
+[Unit]
+Description=Render the boot menu (Limine) wallpaper
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/omarchy-boot-wallpaper-render

@@ -1,0 +1,11 @@
+[Unit]
+Description=Render the boot menu wallpaper when the Omarchy wallpaper or theme changes
+
+[Path]
+# Omarchy re-points current/background on every wallpaper or theme change.
+PathChanged=%h/.local/state/omarchy/current
+PathChanged=%h/.local/state/omarchy/current/background
+Unit=omarchy-boot-wallpaper.service
+
+[Install]
+WantedBy=default.target

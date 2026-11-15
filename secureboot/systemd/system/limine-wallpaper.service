@@ -1,0 +1,7 @@
+[Unit]
+Description=Apply the boot menu wallpaper to Limine (hash, re-enroll, sign)
+RequiresMountsFor=/boot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/limine-wallpaper-apply

@@ -1,0 +1,55 @@
+#!/bin/bash
+# Apply /var/lib/omarchy-boot-wallpaper/boot.jpg as the Limine boot menu
+# wallpaper: copy it to the ESP, update its BLAKE2B hash in limine.conf, then
+# re-enroll the config checksum and re-sign Limine (Secure Boot).
+# Runs as root from limine-wallpaper.service. Never parses the image itself.
+set -euo pipefail
+
+SRC=/var/lib/omarchy-boot-wallpaper/boot.jpg
+DST=/boot/limine-wallpaper.jpg
+CONF=/boot/limine.conf
+MAX=$((8 * 1024 * 1024))
+
+exec 9>/run/lock/limine-wallpaper.lock
+flock 9
+
+[[ -e $SRC ]] || exit 0
+
+# Copy without following symlinks into a root-owned temp, then validate that.
+tmp=$(mktemp /run/limine-wallpaper.XXXXXX)
+trap 'rm -f "$tmp" "$CONF.new"' EXIT
+cp -P --no-preserve=all "$SRC" "$tmp"
+if [[ -L $tmp || ! -f $tmp ]]; then echo "refusing: not a regular file" >&2; exit 1; fi
+size=$(stat -c %s "$tmp")
+if (( size == 0 || size > MAX )); then echo "refusing: size $size" >&2; exit 1; fi
+if [[ $(head -c 3 "$tmp" | od -An -tx1 | tr -d ' \n') != ffd8ff ]]; then
+  echo "refusing: not a JPEG" >&2; exit 1
+fi
+
+hash=$(b2sum "$tmp" | cut -d' ' -f1)
+if grep -q "^wallpaper: boot():/limine-wallpaper.jpg#$hash$" "$CONF" && cmp -s "$tmp" "$DST"; then
+  echo "boot wallpaper already current"; exit 0
+fi
+if ! grep -q '^wallpaper: boot():/limine-wallpaper.jpg#' "$CONF"; then
+  echo "no managed wallpaper line in $CONF, nothing to do" >&2; exit 0
+fi
+
+# 1. New image on the ESP (a stale hash only makes Limine skip the wallpaper).
+install -m 0644 "$tmp" "$DST.new"
+sync -f "$DST.new"
+mv -f "$DST.new" "$DST"
+
+# 2. New hash in limine.conf, then 3. re-enroll + sign straight away.
+sed "s|^wallpaper: boot():/limine-wallpaper.jpg#.*|wallpaper: boot():/limine-wallpaper.jpg#$hash|" "$CONF" >"$CONF.new"
+chmod --reference="$CONF" "$CONF.new"
+mv -f "$CONF.new" "$CONF"
+sync -f "$CONF"
+limine-enroll-config
+
+# Verify
+conf_hash=$(b2sum "$CONF" | cut -d' ' -f1)
+if grep -qa "$conf_hash" /boot/EFI/limine/limine_x64.efi; then
+  echo "boot wallpaper updated and limine.conf re-enrolled"
+else
+  echo "ERROR: limine.conf checksum not enrolled" >&2; exit 1
+fi

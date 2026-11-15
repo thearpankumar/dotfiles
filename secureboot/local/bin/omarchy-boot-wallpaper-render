@@ -1,0 +1,36 @@
+#!/bin/bash
+# Render the current Omarchy wallpaper as a dimmed 1920x1080 JPEG for the
+# Limine boot menu, tinted with the active theme's background colour.
+# The root path unit limine-wallpaper.path picks it up, copies it to /boot,
+# updates its BLAKE2B hash in limine.conf and re-enrolls/signs Limine.
+set -euo pipefail
+
+link=$HOME/.local/state/omarchy/current/background
+colors=$HOME/.local/state/omarchy/current/theme/colors.toml
+out_dir=/var/lib/omarchy-boot-wallpaper
+out=$out_dir/boot.jpg
+size=${BOOT_WALLPAPER_SIZE:-1920x1080}
+
+[[ -e $link ]] || exit 0
+[[ -d $out_dir && -w $out_dir ]] || { echo "$out_dir missing or not writable" >&2; exit 1; }
+src=$(realpath "$link")
+
+tint=$(sed -n 's/^background *= *"\(#[0-9a-fA-F]\{6\}\)".*/\1/p' "$colors" 2>/dev/null | head -1)
+tint=${tint:-#1a1b26}
+
+tmp=$(mktemp "$out_dir/.boot-XXXXXX.jpg")
+still=""
+trap 'rm -f "$tmp" "$still"' EXIT
+case "${src,,}" in
+  *.mp4|*.webm|*.mkv|*.mov|*.avi)   # video wallpaper: use a still frame
+    still=$(mktemp "$out_dir/.still-XXXXXX.jpg")
+    ffmpegthumbnailer -i "$src" -o "$still" -s 3000 -q 9
+    input=$still ;;
+  *) input="${src}[0]" ;;
+esac
+magick "$input" -auto-orient -resize "${size}^" -gravity center -extent "$size" \
+  -fill "$tint" -colorize 55% -strip -interlace none -sampling-factor 4:2:0 -quality 90 "jpg:$tmp"
+chmod 644 "$tmp"
+if [[ -f $out ]] && cmp -s "$tmp" "$out"; then exit 0; fi
+mv -f "$tmp" "$out"
+echo "Boot menu wallpaper rendered from $src (tint $tint)"
