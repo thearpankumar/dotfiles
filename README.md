@@ -19,6 +19,7 @@ Exceptions: `local/bin/` → `~/.local/bin/`, `systemd/user/` → `~/.config/sys
 | `ghostty/` | Ghostty terminal (default): 3px padding, launches fish → tmux |
 | `omarchy/` | Omarchy shell/bar (screensaver off, lock after 5 min), menu extensions, hooks |
 | `omarchy/plugins/ultron.lock/` | Custom lock screen: current wallpaper (sharp, dark tint), big clock + date, Omarchy password box |
+| `omarchy/plugins/custom.monitor/` | Display panel (bar, right): adds a Mode row — Extend / Mirror / External only — when an external display is connected |
 | `local/bin/omarchy-gamemode` | Game mode (`SUPER+F1`): no animations/blur/shadows, opaque windows, VRR, performance power, notifications paused; wallpaper and shortcuts unchanged |
 | `local/bin/omarchy-login-wallpaper-sync`, `systemd/user/omarchy-login-wallpaper.*` | Copies the current desktop wallpaper for the SDDM login screen on every wallpaper/theme change |
 | `usr/share/sddm/themes/omarchy-wallpaper/` + `etc/sddm.conf.d/zz-login-wallpaper.conf` | SDDM login theme: Omarchy password box on the desktop wallpaper, no logo |
@@ -70,6 +71,9 @@ systemctl --user enable --now omarchy-logind-lock.service omarchy-login-wallpape
 
 # Lock screen clone
 omarchy plugin enable ultron.lock && omarchy restart shell
+
+# Display panel with Extend / Mirror / External only
+omarchy plugin enable custom.monitor && omarchy restart shell
 
 # System files (login theme, boot theme, lid behaviour)
 sudo cp -r usr/share/sddm/themes/omarchy-wallpaper /usr/share/sddm/themes/
