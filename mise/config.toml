@@ -1,0 +1,7 @@
+[settings]
+# uv is installed standalone in ~/.local/bin; stop Omarchy's lazy mise uv from shadowing it.
+# (mise's recommended way: "@system is deprecated, use MISE_DISABLE_TOOLS instead")
+disable_tools = ["uv"]
+
+[tools]
+pnpm = "12.21.0"

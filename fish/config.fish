@@ -32,6 +32,7 @@ set -gx BROWSER omarchy-launch-browser
 set -gx BAT_THEME ansi
 set -gx MANPAGER "nvim +Man!"
 set -gx PUPPETEER_EXECUTABLE_PATH /usr/bin/chromium   # mermaid-cli (mmdc) uses system Chromium
+set -gx HEADROOM_TELEMETRY off   # no Headroom usage beacon
 
 # Everything below is only for interactive shells.
 status is-interactive; or return

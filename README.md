@@ -17,6 +17,7 @@ Exceptions: `local/bin/` → `~/.local/bin/`, `systemd/user/` → `~/.config/sys
 | `tmux/` | tmux: `C-Space` prefix, Nova theme, vim-tmux-navigator, resurrect/continuum, fish panes, image passthrough |
 | `nvim/` | LazyVim + Omarchy theme sync, my old shortcuts, Claude Code, DAP, Rust, Markdown, Diffview, images |
 | `ghostty/` | Ghostty terminal (default): 3px padding, launches fish → tmux |
+| `mise/` | mise: `disable_tools = ["uv"]` so the standalone `~/.local/bin/uv` is used instead of Omarchy's lazy mise uv (it was re-downloading uv on every `uv` call); pnpm pin |
 | `omarchy/` | Omarchy shell/bar (screensaver off, lock after 5 min), menu extensions, hooks |
 | `omarchy/plugins/ultron.lock/` | Custom lock screen: current wallpaper (sharp, dark tint), big clock + date, Omarchy password box |
 | `omarchy/plugins/custom.monitor/` | Display panel (bar, right): adds a Mode row — Extend / Mirror / External only — when an external display is connected |
