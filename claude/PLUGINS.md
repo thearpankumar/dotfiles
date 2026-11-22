@@ -8,6 +8,7 @@ Plugins installed in Claude Code (user scope).
 |---|---|
 | claude-plugins-official | https://github.com/anthropics/claude-plugins-official |
 | ponytail | https://github.com/DietrichGebert/ponytail |
+| caveman | https://github.com/JuliusBrussee/caveman |
 
 ## Plugins
 
@@ -15,6 +16,7 @@ Plugins installed in Claude Code (user scope).
 |---|---|---|---|
 | superpowers | claude-plugins-official (synced from claude.ai) | Skill library: brainstorming, TDD, debugging, plans | https://github.com/obra/superpowers |
 | ponytail | ponytail | Makes Claude reuse existing code/stdlib before writing new code | https://github.com/DietrichGebert/ponytail |
+| caveman | caveman | Ultra-terse replies to cut output tokens (`/caveman`, `/caveman-stats`); local hooks only, no telemetry | https://github.com/JuliusBrussee/caveman |
 | frontend-design | claude-plugins-official | Distinctive, production-grade UI design | https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design |
 | feature-dev | claude-plugins-official | Guided feature workflow with explore/architect/review agents | https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev |
 | code-review | claude-plugins-official | Multi-agent PR review | https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review |
@@ -29,8 +31,10 @@ Plugins installed in Claude Code (user scope).
 ```sh
 claude plugin marketplace add anthropics/claude-plugins-official
 claude plugin marketplace add DietrichGebert/ponytail
+claude plugin marketplace add JuliusBrussee/caveman
 
 claude plugin install ponytail@ponytail
+claude plugin install caveman@caveman   # update: claude plugin update caveman@caveman
 for p in superpowers frontend-design feature-dev code-review security-guidance skill-creator playwright chrome-devtools-mcp github; do
   claude plugin install "$p@claude-plugins-official"
 done
@@ -41,6 +45,26 @@ GitHub plugin token (fish, `~/.config/fish/config.fish`):
 ```fish
 set -gx GITHUB_PERSONAL_ACCESS_TOKEN (gh auth token)
 ```
+
+## Headroom (context compression proxy)
+
+[Headroom](https://github.com/chopratejas/headroom) sits between Claude Code and the API and compresses context.
+Only the `proxy` extra is needed for Claude Code (`[all]` pulls OCR/embeddings/etc.).
+
+```sh
+uv tool install --python 3.13 "headroom-ai[proxy]"
+headroom doctor          # health check
+headroom wrap claude     # launch Claude Code through the proxy (127.0.0.1:8787)
+```
+
+Telemetry beacon is on by default; disabled in `~/.config/fish/config.fish`:
+
+```fish
+set -gx HEADROOM_TELEMETRY off
+```
+
+On Omarchy, `uv` is also a lazy mise tool; `disable_tools = ["uv"]` in `~/.config/mise/config.toml`
+keeps the standalone `~/.local/bin/uv` (see the `omarchy` branch).
 
 ## Shift+Enter inside tmux
 
