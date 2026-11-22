@@ -79,7 +79,10 @@ set -as terminal-features ',*:extkeys'
 
 ## Status line
 
-Shows `model │ ctx % │  branch`. Script: [`statusline.sh`](statusline.sh)
+Shows `[CAVEMAN] model │ ctx % │  branch`. Script: [`statusline.sh`](statusline.sh)
+
+The `[CAVEMAN]`/`[ULTRACAVE]`/`[MEGACAVE]` badge comes from the caveman plugin's own
+`caveman-statusline.sh` (newest installed version); it is hidden when caveman is off or not installed.
 
 ```sh
 cp claude/statusline.sh ~/.claude/statusline.sh && chmod +x ~/.claude/statusline.sh

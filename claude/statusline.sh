@@ -35,4 +35,11 @@ if [ -n "$dir" ] && [ -d "$dir" ]; then
   [ -n "$branch" ] && out="$out │  $branch"
 fi
 
+# caveman plugin badge ([CAVEMAN]/[ULTRACAVE]/...); newest installed version, empty when off
+cav=$(ls -d "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"/plugins/cache/caveman/caveman/*/src/hooks/caveman-statusline.sh 2>/dev/null | sort -V | tail -1)
+if [ -n "$cav" ]; then
+  badge=$(printf '%s' "$input" | bash "$cav" 2>/dev/null)
+  [ -n "$badge" ] && out="$badge $out"
+fi
+
 printf '%s\n' "$out"
